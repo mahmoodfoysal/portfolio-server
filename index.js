@@ -33,7 +33,33 @@ async function run() {
     const projectsCollection = database.collection("projects");
     const reviewsCollection = database.collection("reviews");
 
+    // all post operation are here 
+    app.post('/projects', async(req, res) => {
+      const postProjectInfo = req.body;
+      console.log(postProjectInfo);
+      const result = await projectsCollection.insertOne(postProjectInfo);
+      res.send(result);
+    });
 
+    app.post('/reviews', async(req, res) => {
+      const postReviews = req.body;
+      console.log(postReviews);
+      const result = await reviewsCollection.insertOne(postReviews);
+      res.send(result);
+    });
+
+    // all get operation are here 
+    app.get('/projects', async(req, res) => {
+      const getProjects = projectsCollection.find();
+      const result = await getProjects.toArray();
+      res.send(result);
+    });
+
+    app.get('/reviews', async(req, res) => {
+      const getReviews = reviewsCollection.find();
+      const result = await getReviews.toArray();
+      res.send(result);
+    });
 
 
 
